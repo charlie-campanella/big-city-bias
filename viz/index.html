@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+        <meta http-equiv="Pragma" content="no-cache" />
+        <meta http-equiv="Expires" content="0" />
+        <!-- Plotly.js -->
+        <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    </head>
+    <body>
+        
+    </body>
+    <script>
+        const main = async () => {
+
+            const BODY_ELEMENT = document.getElementsByTagName('body')[0];
+
+            const fetchJsonData = async (url) => {
+                const response = await fetch(url);
+                const data = await response.json();
+                return data;
+            }
+
+            const createHeaderElement = (result) => {
+                const HEADER_ELEMENT = document.createElement('div');
+                BODY_ELEMENT.appendChild(HEADER_ELEMENT);
+                return HEADER_ELEMENT;
+            }
+
+            const createChartElement = (result) => {
+                const CHART_ELEMENT = document.createElement('div');
+                BODY_ELEMENT.appendChild(CHART_ELEMENT);
+                CHART_ELEMENT.setAttribute('id', result.plot.title);
+                return CHART_ELEMENT;
+            }
+
+            const createChartStatsElement = (result) => {
+                const CHART_STATS_ELEMENT = document.createElement('div');
+                BODY_ELEMENT.appendChild(CHART_STATS_ELEMENT);
+                CHART_STATS_ELEMENT.setAttribute('id', result.plot.title + '-stats');
+                return CHART_STATS_ELEMENT;
+            }
+
+            const plot = (result) => {
+                const CHART_ELEMENT = createChartElement(result);
+                const data = {
+                    mode: 'markers',
+                    name: 'Data',
+                    text: result.plot.labels,
+                    type: 'scatter',
+                    x: result.values.x,
+                    y: result.values.y,
+                }
+                const regression = {
+                    mode: 'lines',
+                    name: 'Linear Regression',
+                    x: result.values.regression.x,
+                    y: result.values.regression.y,
+                }
+                Plotly.newPlot(CHART_ELEMENT, [data, regression], {
+                    title: result.name,
+                    xaxis: result.plot.xaxis,
+                    yaxis: result.plot.yaxis,
+                });
+            }
+
+            const renderHeader = (model) => {
+                const HEADER_ELEMENT = createHeaderElement(model);
+                HEADER_ELEMENT.innerHTML = '<h1>' + model + '</h1>';
+            }
+
+            const renderStats = (result) => {
+                const CHART_STATS_ELEMENT = createChartStatsElement(result);
+                CHART_STATS_ELEMENT.innerHTML = JSON.stringify(result.stats, null, 2);
+            }
+
+            const jsonData = await fetchJsonData('./data.json');
+            const models = Object.keys(jsonData);
+            for (const model of models) {
+                renderHeader(model);
+                const results = jsonData[model];
+                for (const result of results) {
+                    plot(result);
+                    renderStats(result);
+                }
+            }
+        }
+
+        main();
+    </script>
+</html>

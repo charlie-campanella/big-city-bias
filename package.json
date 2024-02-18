@@ -1,0 +1,42 @@
+{
+  "name": "big-city-bias",
+  "version": "1.0.0",
+  "description": "Code for paper submitted to the NPL4HR workshop at EACL 2024",
+  "main": "src/index.ts",
+  "scripts": {
+    "eval": "tsc && node build/index.js",
+    "eval:viz": "npm run eval && npm run viz",
+    "test": "jest",
+    "viz": "./node_modules/.bin/http-server -o -c-1 viz"
+  },
+  "keywords": [
+    "NLP4HR",
+    "EACL",
+    "City",
+    "Population",
+    "Bias"
+  ],
+  "author": "Charlie Campanella",
+  "license": "BSD-3-Clause",
+  "devDependencies": {
+    "@types/fast-levenshtein": "^0.0.4",
+    "jest": "^29.7.0",
+    "static-server": "^2.2.1",
+    "ts-jest": "^29.1.1",
+    "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "@googlemaps/google-maps-services-js": "^3.3.42",
+    "@types/jest": "^29.5.11",
+    "bottleneck": "^2.19.5",
+    "csv-parser": "^3.0.0",
+    "dotenv": "^16.3.1",
+    "fast-levenshtein": "^3.0.0",
+    "http-server": "^14.1.1",
+    "jsonrepair": "^3.5.0",
+    "openai": "^4.24.0",
+    "replicate": "^0.25.2",
+    "simple-statistics": "^7.8.3",
+    "statistics.js": "^1.0.0"
+  }
+}
