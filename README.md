@@ -1,7 +1,7 @@
 # Big City Bias: Evaluating the Impact of Metropolitan Size on Computational Job Market Abilities of Language Models
 
 <img src="./.readme/header.png"/>
-Code for the corresponding paper submitted to the NLP4HR Workshop at EACL 2024
+Code for the corresponding paper submitted to the NLP4HR Workshop at EACL 2024 (https://arxiv.org/pdf/2403.08046.pdf)
 
 ## Abstract
 
